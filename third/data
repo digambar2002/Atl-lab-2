@@ -1,0 +1,63 @@
+config/routes.rb
+
+Rails.application.routes.draw do
+  get 'bmi_calculator/calculate'
+  post 'bmi_calculator/calculate_bmi', to: 'bmi_calculator#calculate_bmi'
+  root 'bmi_calculator#calculate'
+end
+
+
+app/views/bmi_calculator(folder) inside that make below files
+calculate.html.erb
+<h2>Calculate BMI</h2>
+<%= form_with url: '/bmi_calculator/calculate_bmi', method: :post do |f| %>
+  <%= f.label :height, 'Height (in cm):' %>
+  <%= f.text_field :height %>
+
+  <%= f.label :weight, 'Weight (in kg):' %>
+  <%= f.text_field :weight %>
+
+  <%= f.submit 'Calculate', class: 'btn btn-primary' %>
+<% end %>
+
+
+result.html.erb
+<h2>Your BMI Result</h2>
+<p>Your BMI: <%= @bmi %></p>
+<% if @bmi_status == 'Underweight' || @bmi_status == 'Overweight' %>
+  <p style="color: red;">Status: <%= @bmi_status %></p>
+<% elsif @bmi_status == 'Normal weight' %>
+  <p style="color: green;">Status: <%= @bmi_status %></p>
+<% end %>
+
+
+
+
+in controller make file bmi_calculator_controller.rb
+
+class BmiCalculatorController < ApplicationController
+    def calculate
+    end
+  
+    def calculate_bmi
+      height = params[:height].to_f / 100 # Convert height to meters
+      weight = params[:weight].to_f
+      bmi = (weight / (height * height)).round(2)
+      @bmi_status = get_bmi_status(bmi)
+      @bmi = bmi
+      render 'result'
+    end
+  
+    private
+  
+    def get_bmi_status(bmi)
+      if bmi < 18.5
+        'Underweight'
+      elsif bmi < 25
+        'Normal weight'
+      else
+        'Overweight'
+      end
+    end
+  end
+  
