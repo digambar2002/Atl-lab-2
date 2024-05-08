@@ -8,6 +8,7 @@ def calculate_bmi(request):
             height = form.cleaned_data['height'] / 100  
             weight = form.cleaned_data['weight']
             bmi = weight / (height * height)
+            bmi=round(bmi,2)
             bmi_status = get_bmi_status(bmi)
             return render(request, 'result.html', {'bmi': bmi, 'bmi_status': bmi_status})
     else:

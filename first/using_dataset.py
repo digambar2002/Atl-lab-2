@@ -6,7 +6,7 @@ import seaborn as sns
 
 # Load your dataset
 # Assuming your dataset is stored in a CSV file named 'your_dataset.csv'
-df = pd.read_csv('/content/portfolio_data.csv', parse_dates=True, index_col='Date')
+df = pd.read_csv('portfolio_data.csv', parse_dates=True, index_col='Date')
 
 # Set up the style for plots
 sns.set_style('whitegrid')
