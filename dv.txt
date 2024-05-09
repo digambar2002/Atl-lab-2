@@ -1,0 +1,12 @@
+import matplotlib.pyplot as plt
+
+# Sample data
+cars = ['Sedan', 'SUV', 'Truck', 'Hatchback']
+sales = [300, 450, 200, 350]  # Sample sales numbers
+
+# Plotting the data
+plt.bar(cars, sales, color='skyblue')
+plt.xlabel('Car Type')
+plt.ylabel('Number of Sales')
+plt.title('Car Sales Data')
+plt.show()
